@@ -1,5 +1,3 @@
 pymongo
-tarfile
 python-dotenv
-datetime
 dropbox
