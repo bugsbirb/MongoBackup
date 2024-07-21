@@ -1,5 +1,5 @@
 import os
-import datetime
+
 import tarfile
 from pymongo import MongoClient
 from bson.json_util import dumps
@@ -7,14 +7,15 @@ from dotenv import load_dotenv
 import time
 import dropbox
 import gc
-from datetime import datetime, timedelta
+from datetime import timedelta
+import datetime
 load_dotenv()
 mongoUri = os.getenv('mongo_uri')
 dbnames = os.getenv('db_names').split(',')
 dropbox_key = os.getenv('dropbox_key')
 interval = int(os.getenv('interval'))
 keep_files_locally = os.getenv('keep_files_locally')
-expiration_time = datetime.now() + timedelta(weeks=52)
+expiration_time = datetime.datetime.now() + timedelta(weeks=52)
 def run_backup():
     client = MongoClient(mongoUri)
     for dbname in dbnames:
