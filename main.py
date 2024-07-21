@@ -92,7 +92,7 @@ def create_folder_backup(dbname):
     return directory
 
 def upload_to_dropbox(filepath):
-    dbx = dropbox.Dropbox(dropbox_key)
+    dbx = dropbox.Dropbox(dropbox_key, oauth2_refresh_token=os.getenv('dropbox_refresh_token'), app_key=os.getenv('dropbox_app_key'), app_secret=os.getenv('dropbox_app_secret'))
     dbx.check_and_refresh_access_token()
     with open(filepath, 'rb') as f:
         dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
