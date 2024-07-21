@@ -107,6 +107,7 @@ if __name__ == '__main__':
             time.sleep(interval)
         except Exception as e:
             print(e)
-            print('[❌] Backup failed, retrying in 10 seconds')
+            print('[❌] Backup failed.')
             
             time.sleep(10)
+            quit(500)
