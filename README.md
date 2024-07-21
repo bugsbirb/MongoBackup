@@ -9,6 +9,8 @@ db_names=
 dropbox_key=
 interval=
 retry_time=
+keep_files_locally= True
+# [keep_files_locally] This is if you want to keep the files on the workspace (This will still send to workspace)
 # For db_names you have to list it like pizza,chicken,donken or it'll break :3
 ```
 
