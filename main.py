@@ -108,6 +108,4 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
             print('[❌] Backup failed.')
-            
-            time.sleep(10)
-            quit(500)
+            quit()
