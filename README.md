@@ -5,13 +5,23 @@
 ## .env
 ```env
 mongo_uri=
+
+# For db_names you have to list it like pizza,chicken,donken or it'll break :3
 db_names=
+
 dropbox_key=
 interval=
 retry_time=
-keep_files_locally= False
+keep_files_locally= True
 # [keep_files_locally] This is if you want to keep the files on the workspace (This will still send to workspace)
-# For db_names you have to list it like pizza,chicken,donken or it'll break :3
+dropbox_app_key=
+dropbox_app_secret=
+
+# For the refresh token follow this tutorial: https://github.com/FranklinThaker/Dropbox-API-Uninterrupted-Access
+dropbox_refresh_token= ""
+
+
+
 ```
 
 ## Dropbox API Key [TUT]
