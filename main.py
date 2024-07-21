@@ -92,7 +92,7 @@ def create_folder_backup(dbname):
     return directory
 
 def upload_to_dropbox(filepath):
-    dbx = dropbox.Dropbox(dropbox_key, oauth2_refresh_token=os.getenv('dropbox_refresh_token'), app_key=os.getenv('dropbox_app_key'), app_secret=os.getenv('dropbox_app_secret'))
+    dbx = dropbox.Dropbox(oauth2_access_token=dropbox_key, oauth2_access_token_expiration=123213123121231231231232132132131231233123123123123123, oauth2_refresh_token=os.getenv('dropbox_refresh_token'), app_key=os.getenv('dropbox_app_key'), app_secret=os.getenv('dropbox_app_secret'))
     dbx.check_and_refresh_access_token()
     with open(filepath, 'rb') as f:
         dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
@@ -108,4 +108,5 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
             print('[❌] Backup failed, retrying in 10 seconds')
+            
             time.sleep(10)
