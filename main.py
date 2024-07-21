@@ -7,14 +7,14 @@ from dotenv import load_dotenv
 import time
 import dropbox
 import gc
-
+from datetime import datetime, timedelta
 load_dotenv()
 mongoUri = os.getenv('mongo_uri')
 dbnames = os.getenv('db_names').split(',')
 dropbox_key = os.getenv('dropbox_key')
 interval = int(os.getenv('interval'))
 keep_files_locally = os.getenv('keep_files_locally')
-
+expiration_time = datetime.now() + timedelta(weeks=52)
 def run_backup():
     client = MongoClient(mongoUri)
     for dbname in dbnames:
@@ -92,7 +92,7 @@ def create_folder_backup(dbname):
     return directory
 
 def upload_to_dropbox(filepath):
-    dbx = dropbox.Dropbox(oauth2_access_token=dropbox_key, oauth2_access_token_expiration=123213123121231231231232132132131231233123123123123123, oauth2_refresh_token=os.getenv('dropbox_refresh_token'), app_key=os.getenv('dropbox_app_key'), app_secret=os.getenv('dropbox_app_secret'))
+    dbx = dropbox.Dropbox(oauth2_access_token=dropbox_key, oauth2_access_token_expiration=expiration_time, oauth2_refresh_token=os.getenv('dropbox_refresh_token'), app_key=os.getenv('dropbox_app_key'), app_secret=os.getenv('dropbox_app_secret'))
     dbx.check_and_refresh_access_token()
     with open(filepath, 'rb') as f:
         dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
