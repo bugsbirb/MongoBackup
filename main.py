@@ -55,6 +55,7 @@ def create_folder_backup(dbname):
 
 def upload_to_dropbox(filepath):
     dbx = dropbox.Dropbox(dropbox_key)
+    dbx.check_and_refresh_access_token()
     with open(filepath, 'rb') as f:
         dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
     print(f'Uploaded {filepath} to Dropbox')
