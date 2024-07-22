@@ -99,6 +99,28 @@ def upload_to_dropbox(filepath):
         dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
     print(f'[📦] Uploaded {filepath} to Dropbox')
 
+
+def upload_to_dropbox(filepath):
+    refresh_token = os.getenv('DROPBOX_REFRESH_TOKEN')
+    app_key = os.getenv('DROPBOX_APP_KEY')
+    app_secret = os.getenv('DROPBOX_APP_SECRET')
+
+    dbx = dropbox.Dropbox(
+        oauth2_access_token=os.getenv('DROPBOX_ACCESS_TOKEN'),
+        oauth2_access_token_expiration=datetime.datetime.now() + timedelta(seconds=int(14400)),
+        oauth2_refresh_token=refresh_token,
+        app_key=app_key,
+        app_secret=app_secret
+    )
+    refresh_access_token(dbx)
+    with open(filepath, 'rb') as f:
+        dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
+    print(f'[📦] Uploaded {filepath} to Dropbox')
+    
+def refresh_access_token(dbx):
+    if dbx.check_and_refresh_access_token():
+        print("[🔄] Access token refreshed")
+
 if __name__ == '__main__':
     print('[⏰] Starting backup')
     while True:
