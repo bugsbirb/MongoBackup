@@ -93,14 +93,6 @@ def create_folder_backup(dbname):
     return directory
 
 def upload_to_dropbox(filepath):
-    dbx = dropbox.Dropbox(oauth2_access_token=dropbox_key, oauth2_access_token_expiration=expiration_time, oauth2_refresh_token=os.getenv('dropbox_refresh_token'), app_key=os.getenv('dropbox_app_key'), app_secret=os.getenv('dropbox_app_secret'))
-    dbx.check_and_refresh_access_token()
-    with open(filepath, 'rb') as f:
-        dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
-    print(f'[📦] Uploaded {filepath} to Dropbox')
-
-
-def upload_to_dropbox(filepath):
     refresh_token = os.getenv('DROPBOX_REFRESH_TOKEN')
     app_key = os.getenv('DROPBOX_APP_KEY')
     app_secret = os.getenv('DROPBOX_APP_SECRET')
@@ -116,7 +108,7 @@ def upload_to_dropbox(filepath):
     with open(filepath, 'rb') as f:
         dbx.files_upload(f.read(), '/' + os.path.basename(filepath))
     print(f'[📦] Uploaded {filepath} to Dropbox')
-    
+
 def refresh_access_token(dbx):
     if dbx.check_and_refresh_access_token():
         print("[🔄] Access token refreshed")
